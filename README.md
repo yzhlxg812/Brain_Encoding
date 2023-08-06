@@ -10,3 +10,12 @@ Our method framework is roughly shown in the following figure.
 
 ![image](https://github.com/yzhlxg812/Brain_Encoding/assets/42958127/689ffb8c-b5bb-4ce4-8628-190345a6d6a9)
 
+如图所示，我们采用了图像，文字和图像+文字等方式来构建脑编码模型，用以比较究竟是哪种编码方式更加接近大脑的真实认知过程。
+
+对于图像信息：
+    我们分别采用了ResNet-50, Vision Transformer（ViT） 来提取图像特征。
+    ViT:
+    对于输入的图像，将图像分成若干小块，添加一个可学习的类别块，这个类别块将用于与所有的图像小块进行交互。对图像小块进行flatten操作，即将每个图像块一维向量，再将一维向量拼接起来组成二维向量。再对二维向量使用全连接层进行降维得到二维特征，至此完成了linear projection of flattened patches的操作。随后对输入特征加入位置编码。位置编码用于标示每一个图像块的相对位置。将预处理特征送入transformer encoder中得到交互特征f，也就是我们所提取的特征。
+
+    ResNet-50:
+    我们将图像输入ResNet-50网络中，并且提取出了每一个stage的最后一层作为该stage的特征提取结果。此前的研究表明，分层神经网络
