@@ -10,12 +10,26 @@ Our method framework is roughly shown in the following figure.
 
 ![image](https://github.com/yzhlxg812/Brain_Encoding/assets/42958127/689ffb8c-b5bb-4ce4-8628-190345a6d6a9)
 
-如图所示，我们采用了图像，文字和图像+文字等方式来构建脑编码模型，用以比较究竟是哪种编码方式更加接近大脑的真实认知过程。
+As shown in the figure, we used methods such as images, text, and image+text to construct a brain encoding model, in order to compare which encoding method is closer to the real cognitive process of the brain.
 
-对于图像信息：
-    我们分别采用了ResNet-50, Vision Transformer（ViT） 来提取图像特征。
-ViT:
-    对于输入的图像，将图像分成若干小块，添加一个可学习的类别块，这个类别块将用于与所有的图像小块进行交互。对图像小块进行flatten操作，即将每个图像块一维向量，再将一维向量拼接起来组成二维向量。再对二维向量使用全连接层进行降维得到二维特征，至此完成了linear projection of flattened patches的操作。随后对输入特征加入位置编码。位置编码用于标示每一个图像块的相对位置。将预处理特征送入transformer encoder中得到交互特征f，也就是我们所提取的特征。
+For image information, we used ResNet-50 and Vision Transformer (ViT) to extract image features.
 
-ResNet-50:
-    我们将图像输入ResNet-50网络中，并且提取出了每一个stage的最后一层作为该stage的特征提取结果。此前的研究表明，分层神经网络的进化模式与大脑的工作方式很接近：越深的层往往学习的是更加抽象的信息。
+    ViT:
+        For the input image, divide the image into several small blocks and add a learnable category block that will be used to interact with all the image blocks. Perform a flat operation on small image blocks, which involves concatenating the one-dimensional vectors of each image block to form a two-dimensional vector. Then, using a fully connected layer to reduce the dimensionality of the two-dimensional vector and obtain the two-dimensional features, the linear projection of flattened patches operation is completed. Subsequently, position encoding is added to the input features. Position encoding is used to indicate the relative position of each image block. Feed the preprocessed features into the transformer encoder to obtain the interactive feature f, which is the feature we extract.
+
+    ResNet-50:
+       We input the image into the ResNet-50 network and extract the last layer of each stage as the feature extraction result for that stage. Previous studies have shown that the evolutionary pattern of hierarchical neural networks is very similar to the way the brain works: deeper layers often learn more abstract information.
+       
+
+For the capture of semantic information, we use the following methods:
+
+    BERT: 
+        Enter the text description corresponding to each image provided in the COCO dataset into the BERT model. When using BERT for feature extraction of this sentence, first use a word splitter to segment it and add special tokens [CLS] and [SEP] at the beginning and end. Next, in order to maintain consistency in the length of all sentences in the training set, we will specify a "maximum length" max_ Length. For lengths less than this max_ Complete the sentence with length (fill in with [PAD]); And for those exceeding this max_ Cut the sentence with length. After using [PAD] as padding, an indicator is also required to indicate that [PAD] is only used for padding and does not represent any meaning. Here, a list called attention mask is used to represent it, which has a length equal to max_ Length. For each sentence, if the word at the corresponding position is [PAD], the element value of the attention mask at this position is 0, and vice versa, it is 1. Finally, since the model cannot directly recognize words and can only recognize numbers, it is also necessary to map words to numbers. We will first create a dictionary for the entire word library, with each word having a corresponding number (which is a non repeating number). After preparing the above data, the token can be_ Ids and attention_ The mask is input into the pre trained BERT model to obtain the embedded representation of each word.
+    
+    multi-hot encoding: 
+        We have established a matrix with dimensions (number of images, number of categories) based on the definition of COCO, and determined the matrix based on whether each image contains a certain category. If the image contains a certain category (such as people), we will set the value to 1 in the corresponding position of that category, otherwise it will be set to 0,. Through this simple method, we have represented the category information contained in the image.
+
+
+
+
+    
