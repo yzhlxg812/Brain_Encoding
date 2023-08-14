@@ -29,7 +29,7 @@ BERT:
 Multi-hot encoding: 
     We have established a matrix with dimensions (number of images, number of categories) based on the definition of COCO, and determined the matrix based on whether each image contains a certain category. If the image contains a certain category (such as people), we will set the value to 1 in the corresponding position of that category, otherwise it will be set to 0,. Through this simple method, we have represented the category information contained in the image.
 
-
+Finally, we also adopted ViLT, a concise and efficient multimodal fusion model, to simulate brain encoding. Vision and Language Transformer (ViLT) was published at the International Conference on Machine Learning (ICML) 2021 ViLT can be seen as a minimalist multimodal learning framework baseline It distinguishing feature lies in minimizing the feature extraction process for each modality, while placing the main computational boundary on the feature fusion stage This approach has greatly advanced the field of multimodal learning To fuse the multimodal information of text and image, ViLT is pre trained on the following objectives: image text matching, masked language modeling, and word patch alignment The image and text encoding parts of ViLT are very similar to BERT and ViT, respectively, making them suitable for use as multimodal models in our experiments.
 
 
     
