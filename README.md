@@ -23,7 +23,7 @@ ResNet-50:
 
 For the capture of semantic information, we use the following methods:
 
-<font size=5> BERT: </font>
+BERT: 
     Enter the text description corresponding to each image provided in the COCO dataset into the BERT model. When using BERT for feature extraction of this sentence, first use a word splitter to segment it and add special tokens [CLS] and [SEP] at the beginning and end. Next, in order to maintain consistency in the length of all sentences in the training set, we will specify a "maximum length" max_ Length. For lengths less than this max_ Complete the sentence with length (fill in with [PAD]); And for those exceeding this max_ Cut the sentence with length. After using [PAD] as padding, an indicator is also required to indicate that [PAD] is only used for padding and does not represent any meaning. Here, a list called attention mask is used to represent it, which has a length equal to max_ Length. For each sentence, if the word at the corresponding position is [PAD], the element value of the attention mask at this position is 0, and vice versa, it is 1. Finally, since the model cannot directly recognize words and can only recognize numbers, it is also necessary to map words to numbers. We will first create a dictionary for the entire word library, with each word having a corresponding number (which is a non repeating number). After preparing the above data, the token can be_ Ids and attention_ The mask is input into the pre trained BERT model to obtain the embedded representation of each word.
     
 Multi-hot encoding: 
