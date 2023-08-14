@@ -14,7 +14,7 @@ As shown in the figure, we used methods such as images, text, and image+text to 
 
 For image information, we used ResNet-50 and Vision Transformer (ViT) to extract image features.
 
-<font size=5>ViT:</font>
+ViT:
     For the input image, divide the image into several small blocks and add a learnable category block that will be used to interact with all the image blocks. Perform a flat operation on small image blocks, which involves concatenating the one-dimensional vectors of each image block to form a two-dimensional vector. Then, using a fully connected layer to reduce the dimensionality of the two-dimensional vector and obtain the two-dimensional features, the linear projection of flattened patches operation is completed. Subsequently, position encoding is added to the input features. Position encoding is used to indicate the relative position of each image block. Feed the preprocessed features into the transformer encoder to obtain the interactive feature f, which is the feature we extract.
 
 ResNet-50:
