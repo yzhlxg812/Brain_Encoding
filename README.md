@@ -8,7 +8,8 @@ Our main findings include: 1) compute vision models mostly captured neural activ
 
 Our method framework is roughly shown in the following figure.
 
-![image](https://github.com/yzhlxg812/Brain_Encoding/assets/42958127/689ffb8c-b5bb-4ce4-8628-190345a6d6a9)
+![1](https://github.com/yzhlxg812/Brain_Encoding/assets/42958127/d09d9e6a-8fe4-4c39-a4f4-293e504e0426)
+
 
 As shown in the figure, we used methods such as images, text, and image+text to construct a brain encoding model, in order to compare which encoding method is closer to the real cognitive process of the brain.
 
